@@ -1,11 +1,22 @@
-Linux ¿¡¼­ Å×½ºÆ®
+Linux ì—ì„œ í…ŒìŠ¤íŠ¸
 
 $ gcc test.c jstime.c -o test
 $ ./test
 
-Windows ¿¡¼­ Å×½ºÆ®
+Windows ì—ì„œ í…ŒìŠ¤íŠ¸
 
-Visual Studio °³¹ßÀÚ ¸í·É ÇÁ·ÒÇÁÆ®¿¡¼­
+Visual Studio ê°œë°œì ëª…ë ¹ í”„ë¡¬í”„íŠ¸ì—ì„œ
 
 > cl test.c jstime.c
 > test.exe
+
+
+
+ì£¼ìš” í•¨ìˆ˜
+
+/* epoch time êµ¬í•˜ê¸° (1970ë…„ 1ì›” 1ì¼ 0ì‹œ 0ë¶„ 0ì´ˆ ë¶€í„° íë¥¸ ì´ˆ) */
+extern int64_t jstime_gettimestamp(jstm_t *tm);
+
+/* timestampì„ tmìœ¼ë¡œ ë°”ê¾¸ê¸° */
+extern int jstime_gettm(int64_t timestamp, jstm_t *tm);
+ - year, mon, day, wday, yday, hour, min, sec ëª¨ë‘ êµ¬í•¨.
