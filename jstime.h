@@ -1,9 +1,9 @@
 ﻿/*
- * jstime.h
- *
- * Created: 2016-02-20 PM 9:54:22 (GMT+09:00)
- *  Author: jichan (jic5760@naver.com)
- */ 
+* jstime.h
+*
+* Created: 2016-02-20 PM 9:54:22 (GMT+09:00)
+*  Author: jichan (jic5760@naver.com)
+*/
 
 
 #ifndef JSTIME_H_
@@ -36,6 +36,9 @@ extern char    jstime_mondays(char isleapyear, char month);
 extern int     jstime_getydaysFromDate(int year, int month, int day);
 
 /* epoch time 구하기 (1970년 1월 1일 0시 0분 0초 부터 흐른 초) */
-extern int64_t jstime_mktime(jstm_t *tm);
+extern int64_t jstime_gettimestamp(jstm_t *tm);
+
+/* timestamp을 tm으로 바꾸기 */
+extern int jstime_gettm(int64_t timestamp, jstm_t *tm);
 
 #endif /* JSTIME_H_ */

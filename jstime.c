@@ -130,7 +130,7 @@ int jstime_getydaysFromDate(int year, int month, int day)
 	return mday;
 }
 
-int64_t jstime_mktime(jstm_t *tm)
+int64_t jstime_gettimestamp(jstm_t *tm)
 {
 	int16_t i, j;
 	uint16_t NumberOfleapYears=0;
@@ -154,8 +154,8 @@ int64_t jstime_mktime(jstm_t *tm)
 	
 	_jstime_dayproc(&year, &month, &day);
 	
-	j=1970;
-	for(i=year;i;i--, j++)
+	j=1900;
+	for(i=year-1;i>=0;i--, j++)
 	{
 		if(_jstime_isleapyear(j)) NumberOfleapYears++;
 	}
@@ -177,4 +177,73 @@ int64_t jstime_mktime(jstm_t *tm)
 	
 	/* unix epoch time은 1970년부터 시작하므로 1900->1970년의 70년간 흐른 초를 더해줌 */
 	return TotalSec - 2208988800;
+}
+
+int jstime_gettm(int64_t timestamp, jstm_t *tm)
+{
+	int32_t year = 0;
+	int32_t month = 0;
+	int32_t day = 0;
+	int32_t hour = 0;
+	int32_t min = 0;
+	int32_t sec = 0;
+	int32_t ydays = 0;
+	char wday;
+
+	int64_t tsdays;
+	int32_t tstime;
+
+	int32_t tmp;
+	char isleapyear;
+
+	tsdays = timestamp / 86400;
+	tstime = timestamp % 86400;
+
+	hour = tstime / 3600;
+	tstime = tstime % 3600;
+	min = tstime / 60;
+	sec = tstime % 60;
+
+	wday = (tsdays + 4) % 7;
+
+	year = 1970;
+	tmp = 0;
+	do
+	{
+		tsdays -= tmp;
+		if ((isleapyear = _jstime_isleapyear(year)))
+		{
+			tmp = 366;
+		}
+		else{
+			tmp = 365;
+		}
+		year++;
+	} while (tsdays > tmp);
+	year -= 1;
+
+	ydays = 0;
+	month = 0;
+	tmp = 0;
+	do
+	{
+		tsdays -= tmp;
+		ydays += tmp;
+		tmp = _jstime_MonDays[isleapyear][month];
+		month++;
+	} while (tsdays > tmp);
+
+	day = tsdays;
+	ydays += day;
+
+	tm->tm_year = year - 1900;
+	tm->tm_mon = month - 1;
+	tm->tm_mday = day + 1;
+	tm->tm_hour = hour;
+	tm->tm_min = min;
+	tm->tm_sec = sec;
+	tm->tm_yday = ydays;
+	tm->tm_wday = wday;
+
+	return 0;
 }
