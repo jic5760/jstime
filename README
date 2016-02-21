@@ -1,0 +1,11 @@
+Linux 에서 테스트
+
+$ gcc test.c jstime.c -o test
+$ ./test
+
+Windows 에서 테스트
+
+Visual Studio 개발자 명령 프롬프트에서
+
+> cl test.c jstime.c
+> test.exe
