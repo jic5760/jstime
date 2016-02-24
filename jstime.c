@@ -181,13 +181,13 @@ int64_t jstime_gettimestamp(jstm_t *tm)
 
 int jstime_gettm(int64_t timestamp, jstm_t *tm)
 {
-	int32_t year = 0;
-	int32_t month = 0;
-	int32_t day = 0;
-	int32_t hour = 0;
-	int32_t min = 0;
-	int32_t sec = 0;
-	int32_t ydays = 0;
+	int16_t year = 0;
+	int8_t month = 0;
+	int8_t day = 0;
+	int8_t hour = 0;
+	int8_t min = 0;
+	int8_t sec = 0;
+	int16_t ydays = 0;
 	char wday;
 
 	int64_t tsdays;
