@@ -231,7 +231,7 @@ int jstime_gettm(int64_t timestamp, jstm_t *tm)
 		ydays += tmp;
 		tmp = _jstime_MonDays[isleapyear][month];
 		month++;
-	} while (tsdays > tmp);
+	} while (tsdays >= tmp);
 
 	day = tsdays;
 	ydays += day;
