@@ -219,7 +219,7 @@ int jstime_gettm(int64_t timestamp, jstm_t *tm)
 			tmp = 365;
 		}
 		year++;
-	} while (tsdays > tmp);
+	} while (tsdays >= tmp);
 	year -= 1;
 
 	ydays = 0;
